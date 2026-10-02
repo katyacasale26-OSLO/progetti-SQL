@@ -89,7 +89,6 @@ GROUP BY s.Nome, s.Cognome, s.Data_Nascita, s.CodiceFiscale, c.NomeCorso, d.Nome
 -- Obiettivo 1
 -- Mostrare gli studenti che hanno preso un voto maggiore o uguale a 28 in qualsiasi corso.
 
-
 SELECT DISTINCT
 	s.nome, s.cognome
 FROM Studenti s
@@ -106,9 +105,7 @@ FROM Studenti s
 	LEFT JOIN Corsi c ON i.CorsoId = c.CorsoID
 WHERE i.StudenteId IS NULL
 ORDER BY [Stundente] ASC;
-
---
-	
+--	
 SELECT 
   s.Nome + ' ' + s.Cognome AS 'nome completo',
   c.NomeCorso,
@@ -122,6 +119,40 @@ WHERE i.DataIscrizione IS NULL;
 
  -- Obiettivo 3  con Full JOIN 
 -- Mostrare studenti e voti, anche se non corrispondono.
+
+SELECT
+	S.Nome,
+	s.Cognome,
+ ISNULL(v.Voto, 0) AS Voto
+FROM Studenti AS s
+FULL OUTER JOIN Voti AS v
+ON s.StudenteId = v.StudenteId
+  
+
+SELECT
+	S.Nome,
+	s.Cognome,
+ CAST(ISNULL(v.Voto, 0) AS INT) AS Voto
+FROM Studenti AS s
+FULL OUTER JOIN Voti AS v
+	ON s.StudenteId = v.StudenteId
+ORDER by Nome asc;
+--
+/* Esercizi 3
+Mostrare i corsi che non hanno studenti iscritti.*/
+SELECT
+    CONCAT(s.Nome, ' ', s.Cognome) AS Nome,
+   ISNULL(c.CorsoId, 0) AS ID,
+  ISNULL(c.NomeCorso, 'Non definita') AS Corso,
+   ISNULL(c.Crediti, 0) AS Crediti,
+    ISNULL(c.Durata,0) As Durata
+FROM Studenti AS s
+LEFT JOIN Iscrizioni AS i
+    ON s.StudenteId = i.StudenteId
+LEFT JOIN Corsi AS c
+    ON c.CorsoId= i.CorsoId
+WHERE i.CorsoId IS NULL;
+
 
 
 
