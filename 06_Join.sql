@@ -312,6 +312,27 @@ SELECT
     DATEPART(HOUR, OraInizio) AS Ora,
     DATEPART(second, OraInizio) AS SECONDI
  FROM Lezioni
+--------------------------------------------------------
+/* 
+   RIGHT JOIN 
+   fa il contario della "LEFT JOIN"
+
+*/
+
+SELECT 
+st.Nome + ' ' + st.Cognome AS Stundente,
+st.CodiceFiscale AS CF,
+ISNULL(CONVERT(VARCHAR, i.DataIscrizione, 105), 'data non definita') AS [Data Iscrizione]
+FROM Studenti st
+RIGHT JOIN Iscrizioni i
+    ON i.StudenteId = st.StudenteId
+
+-------------------------------------------------
+
+SELECT 
+  
+
+
 
 
 
